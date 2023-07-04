@@ -1,17 +1,17 @@
 /**
- * LinkedList class creates head element for linkedlist.
- * The head attribute has default value as null.
- * 
  * @author : Saravanakumar S S
  * @Email  : saravanakumar.ss@zohocorp.com
  * @since  : 03/07/2023
+ * 
+ * ElementChain class creates head element for linkedlist.
+ * The head attribute has default value as null.
  */
 
-public class LinkedList {
+public class ElementChain {
     Node head;
 
 
-    LinkedList(){
+    ElementChain(){
         head = null;
     } 
 
@@ -19,11 +19,11 @@ public class LinkedList {
     /*
      * The Node inner class has two attributes int data and Node next.
      * Node class creates node for linkedlist.
-     */
+     * 
+     *     */
     class Node{
-        int data; // The data attribute contains the actual data.
-        Node next; // The next attribute contains the next object reference.
-
+        int data;
+        Node next;
 
         /**
          * Constructor for Node class
@@ -41,12 +41,8 @@ public class LinkedList {
      * @param val (value) takes the data.
      */
     public void insert(int val){
-        Node newNode = new Node(val); //Creates Node element with some data.
+        Node newNode = new Node(val); 
 
-        /**
-         * if   : assigns newNode to head
-         * else : head element is assigned to new node's next object reference and new node assigned to head element
-         */
 
         if(head==null){ 
             head = newNode; 
@@ -59,39 +55,41 @@ public class LinkedList {
 
 
     /**
-     * The show used to display the elements
+     * The show method used to display the elements
      */
     public void show(){
         Node temp = head;
 
         while(temp != null){
             System.out.print(temp.data+" ");
-            temp = temp.next; // jump to next element(object)
+            temp = temp.next; 
 
         }
         System.out.println();
     }
 
     /**
-     * The method insertAtposition used to insert an data in a specific location
+     * The method insertAtposition used to insert a data in a specific location
      * @param pos (position) index value for specific location
      * @param val (value) takes the data
      */
 
     public void insertAtPosition(int pos, int val){
-        if(pos == 0){   // location 0 is similar to insert method. 
-            insert(val);  // So calling insert method
-            return;  // stop the function
+        if(pos == 0){    
+            insert(val);  
+            return; 
         }
         
-        Node newNode = new Node(val); // creating new node element
+        Node newNode = new Node(val);
 
         Node temp = head;
-        
+
+
+       
         for(int i=1;i<pos;i++){
             temp = temp.next;
             if(temp == null){
-                throw new IndexOutOfBoundsException("Invalid position "+ pos);
+                throw new IndexOutOfBoundsException();
             }
         }
 
@@ -100,30 +98,41 @@ public class LinkedList {
 
     }
 
-
+    /**
+     * The deleteAt method delete the node of given position
+     * @param pos (position) takes the position to remove node
+     */
     public void deleteAt(int pos){
-        if(head == null){
+        if(head == null){ 
             throw new IndexOutOfBoundsException();
         }
 
-        if(pos == 0){
-            head = head.next;
-            return;
+        if(pos == 0){  
+            head = head.next;  
+            return; 
         }
 
-        Node temp = head;
+        Node temp = head;  
         Node prev = null;
 
+
+      
         for(int i=1;i<=pos;i++){
-            prev = temp;
-            temp = temp.next;
+            prev = temp;     
+            temp = temp.next; 
         }
         prev.next = temp.next;
-
     }
 
+
+    /**
+     * The update method updates the data at specific location 
+     * @param posn (position) index value for specific location
+     * @param val (value)  takes the data
+     */
     public void update(int pos, int val){
         Node temp = head;
+
         for(int i=0;i<pos;i++){
             temp = temp.next;
 
