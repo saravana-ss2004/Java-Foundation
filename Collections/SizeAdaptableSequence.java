@@ -2,9 +2,9 @@
  * @author Saravanakumar S S
  * @Email saravanakumar.ss@zohocorp.com
  * @since 30/06/20323
- * 
- * 
- * 
+ * /
+
+ * /
  * THis class creates ArrayList and implements some methods 
  * 
  */
@@ -36,7 +36,6 @@ public class SizeAdaptableSequence {
          */
         arr.remove(0);
         
-
         for (Object v: arr){
             System.out.println(v);
         }
