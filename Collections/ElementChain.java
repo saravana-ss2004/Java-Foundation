@@ -2,7 +2,12 @@
  * @author : Saravanakumar S S
  * @Email  : saravanakumar.ss@zohocorp.com
  * @since  : 03/07/2023
- * 
+ * /
+
+
+
+
+ /*
  * ElementChain class creates head element for linkedlist.
  * The head attribute has default value as null.
  */
@@ -81,9 +86,7 @@ public class ElementChain {
         }
         
         Node newNode = new Node(val);
-
         Node temp = head;
-
 
        
         for(int i=1;i<pos;i++){
@@ -114,7 +117,6 @@ public class ElementChain {
 
         Node temp = head;  
         Node prev = null;
-
 
       
         for(int i=1;i<=pos;i++){
