@@ -17,15 +17,12 @@ public class SelectionSort {
      * @param array - takes an array
      */
     public void sorting(int[] array){
-
         // One by one move boundary of unsorted subarray
         for (int i=0;i<array.length-1;i++){
-            System.out.println(1);
 
             // Find the minimum element in unsorted array
             int min = i;
             for(int j=i;j<array.length;j++){
-                System.out.println(1);
                 if(array[min] > array[j]){
                     min = j;
                 }
@@ -37,6 +34,7 @@ public class SelectionSort {
             array[i] = array[min];
             array[min] = temp;
         }
+        
     }
     public static void main(String[] args) {
         SelectionSort ss = new SelectionSort();
