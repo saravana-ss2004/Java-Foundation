@@ -27,6 +27,7 @@ class Entry<K,V>{
  * This class create LinkedHashmap and implements its methods
  */
 public class CustomLinkedHashMap<K, V> {
+    int capacity;
     
     public CustomLinkedHashMap(){
         
