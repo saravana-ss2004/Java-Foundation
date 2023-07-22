@@ -2,7 +2,7 @@ package Projects;
 
 /**
  * @Author : Saravanakumar S S
- * @Email :  saravanakumar.ss@zohocorp.com
+ * @Email : saravanakumar.ss@zohocorp.com
  * @Since : 19/07/2023
  */
 
@@ -37,6 +37,7 @@ public class CustomLinkedHashMap<K, V> {
 
     /**
      * This method generates hash value to store an entry
+     * 
      * @param key takes key
      * @return hash value
      */
@@ -46,7 +47,8 @@ public class CustomLinkedHashMap<K, V> {
 
     /**
      * This method store an entry into the array
-     * @param key takes key
+     * 
+     * @param key   takes key
      * @param value takes value
      * 
      */
@@ -58,22 +60,24 @@ public class CustomLinkedHashMap<K, V> {
         if (head == null) {
             buckets[bucketValue] = entry;
             this.head = entry;
-        } 
-        else {
+        } else {
 
-            // when collison is happened
+            // when collison was happenedx
             if (buckets[bucketValue] != null) {
                 if (key != buckets[bucketValue].key) {
-                    entry.prev = buckets[bucketValue];
-                    entry.next = buckets[bucketValue].next;
+                    entry.next = head;
+                    head.prev = entry;
                     buckets[bucketValue] = entry;
-                } 
-                else {
+                    head = entry;
+
+                } else {
                     buckets[bucketValue].value = value;
+                    head = buckets[bucketValue];
+
                 }
             } else {
-                entry.prev = head;
-                head.next = entry;
+                entry.next = head;
+                head.prev = entry;
                 buckets[bucketValue] = entry;
                 head = entry;
 
@@ -83,33 +87,49 @@ public class CustomLinkedHashMap<K, V> {
 
     /**
      * This method used to get the value from LinkedHashmap
+     * 
      * @param key takes key
      * @return respective value of the key
      */
-    public V get(K key){
+    public V get(K key) {
         int bucketValue = getHashValue(key);
 
-        Entry<K,V> entry = buckets[bucketValue];
+        Entry<K, V> entry = buckets[bucketValue];
 
-        while(entry != null){
-            if(entry.key.equals(key)){
+        while (entry != null) {
+            if (entry.key.equals(key)) {
                 return entry.value;
             }
-            entry = entry.prev;
+            entry = entry.next;
         }
         return null;
     }
 
+
+    /**
+     * This method prints all the values from tha LinkedHashmap
+     */
+    public void values() {
+        Entry<K, V> temp = head;
+
+        while (temp != null) {
+            System.out.print(temp.value + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
         CustomLinkedHashMap<Integer, String> ll = new CustomLinkedHashMap<>();
-        ll.put(33, "saravanakumar");
-        ll.put(53, "vijaykumar");
-        ll.put(73,"sivakumar");
-        ll.put(93,"Ram kumar");
-        ll.put(113,"karthikkumar");
-        ll.put(56,"something");
+        ll.put(33, "Mosh");
+        ll.put(53, "Hamedani");
+        ll.put(93, "Bro code");
+        ll.put(93, "code with harry");
+        ll.put(113, "some");
+        ll.put(52, "thing");
 
-       System.out.println(ll.get(56));
+        ll.values();
+        System.out.println(ll.get(93));
 
     }
 }
