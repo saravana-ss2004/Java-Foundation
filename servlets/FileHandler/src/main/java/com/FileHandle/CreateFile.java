@@ -6,16 +6,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/createFile/*")
+@WebServlet("/createFile")
 public class CreateFile extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) {
-		String requestUrl = req.getRequestURI();
-		String subName = requestUrl.substring("FileHandler/createFile/".length());
-		String fileName = subName.substring(1);
+		String path = req.getParameter("path");
+		String name = req.getParameter("fileName");
 		
 		CrudOperation co = CrudOperation.getInstance();
-		co.initFile(fileName);
+		co.initFile(name,path);
+		
 	}
 }
