@@ -5,6 +5,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+/**
+ * @Author : saravanakumar S S
+ * @Email : saravanakumar.ss@zohocorp.com
+ * @Since : 26/07/2023
+ */
+
 @WebServlet("/delete_file")
 public class DeleteFile extends HttpServlet{
 	public void doDelete(HttpServletRequest req, HttpServletResponse res){
