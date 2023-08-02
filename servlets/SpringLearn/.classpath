@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="/home/sarav-zstch1200/Downloads/spring-aop-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/sarav-zstch1200/Downloads/springframework-5.1.0.jar"/>
+	<classpathentry kind="lib" path="/home/sarav-zstch1200/Downloads/spring-jcl-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/home/sarav-zstch1200/Downloads/spring-beans-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/home/sarav-zstch1200/Downloads/spring-context-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/home/sarav-zstch1200/Downloads/spring-core-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/home/sarav-zstch1200/Downloads/spring-expression-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/home/sarav-zstch1200/Downloads/spring-aspects-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/home/sarav-zstch1200/Downloads/jar_files (2)/spring-aspects-5.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/home/sarav-zstch1200/Downloads/aspectjweaver-1.9.8.jar"/>
+	<classpathentry kind="lib" path="/home/sarav-zstch1200/Downloads/aspectjrt-1.9.8.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
