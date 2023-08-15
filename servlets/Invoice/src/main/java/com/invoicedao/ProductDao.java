@@ -7,15 +7,13 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-
-import com.invoice.Customer;
 import com.invoice.Product;
 
 @Component
 public class ProductDao {
 	
 	@Autowired
-	JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 	
 	public int saveProduct(Product product) {
 		

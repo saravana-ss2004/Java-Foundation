@@ -27,7 +27,7 @@
 					class="module-btn">Items</span>
 			</div>
 
-			<div class="module">
+			<div class="module" id="change-invoice">
 				<span class="material-symbols-outlined"> description </span> <span
 					class="module-btn">Invoices</span>
 			</div>
@@ -57,6 +57,62 @@
 			<div class="cancel-btn" id="product-cancel">Cancel</div>
 			<div class="add-btn" id="product-add" onclick="addProduct()">Add</div>
 		</div>
+	</section>
+	
+	
+	<section class="new-invoice" id="invoice-popup">
+		<h2>New Invoice</h2>
+		
+		
+		<div class="select-customers">
+			<span class="select-name">Customer Name : </span>
+			<select class="select-customer">
+				<option value="saravana">Mosh</option>
+			</select>
+		</div>
+		
+		<div class="select-products">
+		
+			<div class="add-items">
+				<div class="select-product">Itmes : </div>
+				<select class="select-items">
+					<option value="saravana">Product</option>	
+				</select>
+			</div>
+			
+			<div class="add-quantity">
+				<div class="select-product">Quantity : </div>
+				<input class="select-quantity" type="text" placeholder="units">
+			</div>
+			
+			<div class="invoice-add-items">Add</div>
+		</div>
+		
+		
+		<div>
+			<div>
+				<h3>invoice</h3>
+				
+				<table>
+					<tr>
+						<th class="items-head">ITEM DETAILS</th>
+						<th class="quantity-head">QUANTITY</th>
+						<th class="rate-head">RATE</th>
+						<th class="amount-head">AMOUNT</th>
+					</tr>
+					<tr>
+						<td class="items-value">Egg</td>
+						<td class="quantity-value">30</td>
+						<td class="rate-value">6</td>
+						<td class="amount-value">180</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+		
+
+		
 	</section>
 
 	<section class="dynamic-modules">
@@ -96,6 +152,29 @@
 				<div class="list-cus" id="list-of-products"></div>
 			</div>
 		</section>
+		
+		
+		<section class="invoice-module" id="invoice-module">
+			<div class="top-bar">
+				<h1 class="customer-name">Invoices</h1>
+				<div class="new" id="product-new-btn">+ New</div>
+			</div>
+			<div class="customers-list">
+				<div class="headings">
+					<div class="date">date</div>
+					<div class="invoice">Invoice</div>
+					<div class="invo-name">customer name</div>
+					<div class="status">status</div>
+					<div class="amount">amount</div>
+					<div class="edit"></div>
+					
+				</div>
+				<div class="list-cus" id="list-of-invoices"></div>
+			</div>
+		</section>
+		
+		
+		
 	</section>
 	
 	
@@ -145,7 +224,14 @@
 			<div class="add-btn" id="customer-add" onclick="saveEditedProduct()">Save</div>
 		</div>
 	</section>
+	
+	
+	
+	
 	<script type="text/javascript" src="script.js"></script>
+	
+	
+	
 </body>
 
 </html>

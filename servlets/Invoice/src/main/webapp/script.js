@@ -18,20 +18,37 @@ document.getElementById("product-cancel").onclick = function(){
 document.getElementById("change-customer").onclick = function(){
 	document.getElementById("customer-module").style.display = "block";
 	document.getElementById("product-module").style.display = "none";
-	
+	document.getElementById("invoice-module").style.display = "none";
 	document.getElementById("change-product").style.backgroundColor="transparent";
 	document.getElementById("change-customer").style.backgroundColor="#22b378";
+	document.getElementById("change-invoice").style.backgroundColor = "transparent";
 	getCustomers();
 }
 
 document.getElementById("change-product").onclick = function(){
 	document.getElementById("customer-module").style.display = "none";
 	document.getElementById("product-module").style.display = "block";
+	document.getElementById("invoice-module").style.display = "none";
 	document.getElementById("change-product").style.backgroundColor="#22b378";
 	document.getElementById("change-customer").style.backgroundColor="transparent";
+	document.getElementById("change-invoice").style.backgroundColor = "transparent";
 	
 	getProducts();
 }
+
+document.getElementById("change-invoice").onclick = function(){
+	document.getElementById("customer-module").style.display = "none";
+	document.getElementById("product-module").style.display = "none";
+	document.getElementById("invoice-module").style.display = "block";
+	document.getElementById("change-product").style.backgroundColor="transparent";
+	document.getElementById("change-customer").style.backgroundColor="transparent";
+	document.getElementById("change-invoice").style.backgroundColor = "#22b378";
+	
+	getInvoices();
+}
+
+
+
 
 
 function updateCustomerList(customers) {
@@ -72,6 +89,28 @@ function updateProductList(products){
             	<span onclick="deleteCustomer(this)" style="color:rgb(255,0,0); font-weight:100;"  class="material-symbols-outlined delete-edit"  data-key="${product.id}">delete</span>
             </div>`;
         productsList.appendChild(productDiv);
+    });
+}
+
+
+function updateInvoiceList(invoices){
+	 const invoiceList = document.getElementById("list-of-invoices");
+    invoiceList.innerHTML = ""; 
+
+    invoices.forEach((invoice, index) => {
+        const invoiceDiv = document.createElement("div");
+        invoiceDiv.classList.add("customer");
+        invoiceDiv.innerHTML = `
+            <div class="date">${invoice.date}</div>
+            <div class="invoice">${invoice.invoice}</div>
+            <div class="invo-name">${invoice.customerName}</div>
+            <div class="status">${invoice.status}</div>
+            <div class="amount">${invoice.amount}</div>
+            <div class="edit">
+            	<span style="color:rgb(0,0,255,0.4); font-weight:300;" class="material-symbols-outlined delete-edit" onclick="selectProduct(this)" data-key="${invoice.id}">edit</span>
+            	<span onclick="deleteCustomer(this)" style="color:rgb(255,0,0); font-weight:100;"  class="material-symbols-outlined delete-edit"  data-key="${invoice.id}">delete</span>
+            </div>`;
+        invoiceList.appendChild(invoiceDiv);
     });
 }
 
@@ -383,6 +422,32 @@ function saveEditedProduct(){
 
 }
 
+
+function cliker(){
+	const invoiceNumber = '23';
+	const detail = '{"milk":{"quantity":2,"price":64},"biscuit":{"quantity":4,"price":20}}';
+	const sum = '84';
+	const status = 'paid';
+	const date = '14-08-2023';
+	const customer = '349076';
+
+	const encodedDetail = encodeURIComponent(detail);
+
+	const baseUrl = 'http://localhost:8080/Invoice/addinvoice';
+	const queryParams = `invoice_number=${invoiceNumber}&detail=${encodedDetail}&sum=${sum}&status=${status}&date=${date}&customer=${customer}`;
+	const finalUrl = `${baseUrl}?${queryParams}`;
+
+	console.log('Final URL: ', finalUrl);
+}
+
+
+function getInvoices(){
+	fetch("http://localhost:8080/Invoice/invoices")
+	    .then(response => response.json())
+	    .then(data => {
+	        updateInvoiceList(data.Message);
+	});
+}
 
 
 getCustomers();
