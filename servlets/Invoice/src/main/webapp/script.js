@@ -15,6 +15,13 @@ document.getElementById("product-cancel").onclick = function(){
     cancel("product-popup")
 }
 
+document.getElementById("invoice-new-btn").onclick = function(){
+    document.querySelector(".new-invoice").style.display="block"
+}
+
+document.getElementById("invoice-cancel").onclick = function(){
+    cancel("invoice-popup")
+}
 document.getElementById("change-customer").onclick = function(){
 	document.getElementById("customer-module").style.display = "block";
 	document.getElementById("product-module").style.display = "none";
@@ -45,6 +52,8 @@ document.getElementById("change-invoice").onclick = function(){
 	document.getElementById("change-invoice").style.backgroundColor = "#22b378";
 	
 	getInvoices();
+	listCustomers();
+	listProducts()
 }
 
 
@@ -100,6 +109,9 @@ function updateInvoiceList(invoices){
     invoices.forEach((invoice, index) => {
         const invoiceDiv = document.createElement("div");
         invoiceDiv.classList.add("customer");
+        invoiceDiv.classList.add("invoices");
+        invoiceDiv.setAttribute("data-key", invoice.id)
+        invoiceDiv.setAttribute("onclick", "getInvoice(this)")
         invoiceDiv.innerHTML = `
             <div class="date">${invoice.date}</div>
             <div class="invoice">${invoice.invoice}</div>
@@ -423,21 +435,20 @@ function saveEditedProduct(){
 }
 
 
-function cliker(){
-	const invoiceNumber = '23';
-	const detail = '{"milk":{"quantity":2,"price":64},"biscuit":{"quantity":4,"price":20}}';
-	const sum = '84';
-	const status = 'paid';
-	const date = '14-08-2023';
-	const customer = '349076';
+function encodedDetail(invoiceObj, total, today, pay, customerid){
+	const detail = JSON.stringify(invoiceObj);
+	const sum = total;
+	const status = pay;
+	const date =today;
+	const customer = customerid;
 
 	const encodedDetail = encodeURIComponent(detail);
 
-	const baseUrl = 'http://localhost:8080/Invoice/addinvoice';
-	const queryParams = `invoice_number=${invoiceNumber}&detail=${encodedDetail}&sum=${sum}&status=${status}&date=${date}&customer=${customer}`;
-	const finalUrl = `${baseUrl}?${queryParams}`;
+	const queryParams = `detail=${encodedDetail}&sum=${sum}&status=${status}&date=${date}&customer=${customer}`;
+	const finalUrl = queryParams;
 
 	console.log('Final URL: ', finalUrl);
+	return finalUrl;
 }
 
 
@@ -448,6 +459,191 @@ function getInvoices(){
 	        updateInvoiceList(data.Message);
 	});
 }
+
+
+
+function listCustomers(){
+	let option;
+	fetch("http://localhost:8080/Invoice/customers")
+	    .then(response => response.json())
+	    .then(data => {
+	        let messages = data.Message;
+	       	messages.forEach((message)=>{
+				   
+				   option += `<option value="${message.id}">${message.name}</option>`;
+			})
+			document.getElementById("select-customer").innerHTML = option; 
+	       	
+	});
+}
+
+
+function listProducts(){
+	let option;
+	fetch("http://localhost:8080/Invoice/products")
+	    .then(response => response.json())
+	    .then(data => {
+	        let messages = data.Message;
+	       	messages.forEach((message)=>{
+				   
+				   option += `<option data-key="${message.name}" data-price="${message.price}"  value="${message.name}">${message.name}</option>`;
+			})
+			document.getElementById("select-items").innerHTML = option; 
+	       	
+	});
+}
+let total=0;
+let invoiceObj ={};
+
+function invoiceTemplate(){
+	let item = document.getElementById("select-items");
+	let quantity = document.getElementById("quantity");
+	
+	let option= item.options[item.selectedIndex];
+	let price = option.getAttribute("data-price");
+	
+	let obj = {};
+	obj.quantity = quantity.value;
+	obj.price = price;
+	
+	let product = item.value;
+	
+	invoiceObj[product] = obj;
+	console.log(invoiceObj)
+	updateInvoicetemplate();
+}
+
+
+
+
+
+function updateInvoicetemplate(){
+	document.getElementById("table").innerHTML="";
+	let len = Object.keys(invoiceObj)
+	
+	
+	for(let i=0;i<len.length;i++){
+		let template=`<tr>
+						<td class="items-value">${len[i]}</td>
+						<td class="quantity-value">${invoiceObj[len[i]].quantity}</td>
+						<td class="rate-value">${invoiceObj[len[i]].price}</td>
+						<td class="amount-value">${invoiceObj[len[i]].price * invoiceObj[len[i]].quantity}</td>
+					</tr>`;
+					
+		total += invoiceObj[len[i]].price * invoiceObj[len[i]].quantity
+					
+		document.getElementById("table").innerHTML+=template;
+	}
+	
+	console.log(total)
+	document.getElementById("total").innerText=`Total : ${total}`
+	
+	
+	
+	
+	
+}
+document.getElementById("add-to-invoice").onclick =()=>{invoiceTemplate()}
+
+let date = new Date();
+
+
+
+function createInvoice(){
+	let today= `${date.getDate()}-${date.getUTCMonth()+1}-${date.getFullYear()}`
+	
+	let customer = document.getElementById("select-customer").value
+	fetch("http://localhost:8080/Invoice/addinvoice", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: encodedDetail(invoiceObj, total, today, "unpaid", customer)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Request failed with status " + response.status);
+                
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            if(data == 0){
+				alert("product already exists");
+			}
+			else{
+				cancel("product-popup")
+				 fetch("http://localhost:8080/Invoice/invoices")
+    			.then(response => response.json())
+    			.then(data => {
+        		updateInvoiceList(data.Message);
+        		});
+			}
+   
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+        
+        cancel("invoice-popup")
+        
+    document.getElementById("select-items").value="";
+	document.getElementById("quantity").value="1";
+	document.getElementById("table").innerHTML="";
+	invoiceObj={};
+	total=0;
+	document.getElementById("total").innerText=`Total : ${total}`
+	
+
+}
+
+function deleteInvoice(){
+	fetch("http://localhost:8080/Invoice/deleteinvoice", {
+        	method: "POST",
+        	headers: {
+            	"Content-Type": "application/x-www-form-urlencoded",
+        	},
+        	body: `id=${key}`
+    	})
+    	.then(response => {
+			console.log(response)
+			alertBox.style.display="none";
+        	if (response.ok) {
+            	return fetch("http://localhost:8080/Invoice/invoices");
+        	} else {
+            	console.error("Failed to delete product.");
+        	}
+    	})
+    	.then(response=>response.json())
+		.then(data=>{
+			updateInvoiceList(data.Message)
+		});
+
+}
+
+
+function getInvoice(ele){
+	let id = ele.getAttribute("data-key")
+	console.log(id)
+	
+	fetch("http://localhost:8080/Invoice/invoice", {
+        	method: "POST",
+        	headers: {
+            	"Content-Type": "application/x-www-form-urlencoded",
+        	},
+        	body: `invoice_id=${id}`
+    	})
+    	.then(response => response.json())
+    	.then(data => {
+        	console.log(JSON.parse(data.Message[0].details));
+   		});
+	
+}
+
+
+
+
 
 
 getCustomers();

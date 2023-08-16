@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.invoice.Customer;
 import com.invoice.Product;
 import com.invoicedao.ProductDao;
 
@@ -83,7 +82,7 @@ public class productController {
 	@RequestMapping("/deleteproduct")
 	public void deleteCustomer(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			System.out.println("in");
+			
 			String productId = request.getParameter("product_id");
 			product.deleteProduct(new Product(productId, null, null, null));
 		}catch(Exception e) {

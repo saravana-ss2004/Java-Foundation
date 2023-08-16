@@ -308,6 +308,7 @@ list-cus{
 	top:55px;
 	padding:10px;
 	border-radius:10px;
+	display:none;
 }
 .select-customer{
 	width:300px;
@@ -378,13 +379,13 @@ tr{
 
 }
 td{
-	border:1px solid black;
+	border:1px solid #ebeaf2;
 	padding:4px;
 	height:40px;
 	font-size:14px;
 }
 th{
-	border:1px solid black;
+	border:1px solid #ebeaf2;
 	font-size:14px;
 	padding:4px;
 }
@@ -433,5 +434,35 @@ th{
 	color:teal;
 	
 }
+#total{
+	text-align:right;
+	margin-right:40px;
+}
+.create-invoice{
+	
+	padding:5px;
+	background-color:#22b378;
+	color:white;
+	border-radius:5px;
+	width:fit-content;
+	cursor:pointer;
+}
+.invoice-control{
+	position:absolute;
+	right:0;
+	bottom:0;
+	padding:10px;
+}
 
-
+.invoices{
+	cursor:pointer;
+}
+.view-invoice{
+	border:1px solid black;
+	width:90%;
+	height:calc(100% - 40px);
+	background-color:white;
+	position:absolute;
+	right:0;
+	bottom:0;
+}

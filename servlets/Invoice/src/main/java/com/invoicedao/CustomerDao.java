@@ -21,7 +21,6 @@ public class CustomerDao {
 	
 	
 	public int saveCustomer(Customer customer) {
-		
 		try {
 			String query = "insert into Customers values ('"+customer.getCustomerId()+"','"+customer.getCustomerName()+"','"+customer.getEmail()+"','"+customer.getMobileNumber()+"')";
 			jdbcTemplate.update(query);
@@ -31,8 +30,9 @@ public class CustomerDao {
 			System.out.println(e);
 			return 0;
 		}
-		
 	}
+	
+	
 	public JSONArray getCustomers() {
 		String query = "select * from Customers";
 		List<Customer> customers = jdbcTemplate.query(query, new CustomerRowMapper());
@@ -84,4 +84,5 @@ public class CustomerDao {
 		}
 		return array;
 	}
+		
 }

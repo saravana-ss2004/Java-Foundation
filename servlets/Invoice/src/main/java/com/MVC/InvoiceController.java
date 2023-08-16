@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
+
 import com.invoice.Invoice;
 import com.invoicedao.InvoiceDao;
 
@@ -31,7 +32,7 @@ public class InvoiceController {
 			String number = request.getParameter("invoice_number");
 			String detail= request.getParameter("detail");
 			String sum = request.getParameter("sum");
-			String status = request.getParameter("staus");
+			String status = request.getParameter("status");
 			String date = request.getParameter("date");
 			String id = request.getParameter("customer");
 			
@@ -53,7 +54,7 @@ public class InvoiceController {
 	
 	
 	@RequestMapping("/invoices")
-	public JSONObject getCustomers(HttpServletRequest request, HttpServletResponse response) {
+	public JSONObject getinvoices(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			JSONObject responseObject = new JSONObject();
 			responseObject.put("Status",response.getStatus());
@@ -69,5 +70,33 @@ public class InvoiceController {
 		return null;
 		
 	}
+	
+	@RequestMapping("/deleteinvoice")
+	public void deleteInvoice(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			String id = request.getParameter("id");
+			invoice.deleteInvoice(id);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("/invoice")
+	public void getinvoice(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			String id = request.getParameter("invoice_id");
+			JSONObject responseObject = new JSONObject();
+			responseObject.put("Status",response.getStatus());
+			responseObject.put("Message", invoice.getInvoice(id));
+			System.out.println(responseObject);
+			PrintWriter out = response.getWriter();
+			out.print(responseObject);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 }

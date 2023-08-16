@@ -66,26 +66,24 @@
 		
 		<div class="select-customers">
 			<span class="select-name">Customer Name : </span>
-			<select class="select-customer">
-				<option value="saravana">Mosh</option>
-			</select>
+			<select class="select-customer" id="select-customer"></select>
 		</div>
 		
 		<div class="select-products">
 		
 			<div class="add-items">
-				<div class="select-product">Itmes : </div>
-				<select class="select-items">
+				<div class="select-product">Items : </div>
+				<select class="select-items" id="select-items">
 					<option value="saravana">Product</option>	
 				</select>
 			</div>
 			
 			<div class="add-quantity">
 				<div class="select-product">Quantity : </div>
-				<input class="select-quantity" type="text" placeholder="units">
+				<input class="select-quantity" type="text" placeholder="quantity" id="quantity" value="1">
 			</div>
 			
-			<div class="invoice-add-items">Add</div>
+			<div class="invoice-add-items" id="add-to-invoice">Add</div>
 		</div>
 		
 		
@@ -100,14 +98,17 @@
 						<th class="rate-head">RATE</th>
 						<th class="amount-head">AMOUNT</th>
 					</tr>
-					<tr>
-						<td class="items-value">Egg</td>
-						<td class="quantity-value">30</td>
-						<td class="rate-value">6</td>
-						<td class="amount-value">180</td>
-					</tr>
+					
 				</table>
+				<table id="table">
+					
+				</table>
+				<h3 id="total">Total : 0.00</h3>
 			</div>
+		</div>
+		<div class="action-btns invoice-control">
+			<div class="cancel-btn" id="invoice-cancel">Cancel</div>
+			<div class="add-btn" id="product-add" onclick="createInvoice()">Send</div>
 		</div>
 		
 		
@@ -157,7 +158,7 @@
 		<section class="invoice-module" id="invoice-module">
 			<div class="top-bar">
 				<h1 class="customer-name">Invoices</h1>
-				<div class="new" id="product-new-btn">+ New</div>
+				<div class="new" id="invoice-new-btn" >+ New</div>
 			</div>
 			<div class="customers-list">
 				<div class="headings">
@@ -172,9 +173,6 @@
 				<div class="list-cus" id="list-of-invoices"></div>
 			</div>
 		</section>
-		
-		
-		
 	</section>
 	
 	
@@ -198,7 +196,7 @@
 	
 	<div class="delete-alert" id="delete-alert">
 		<div class="sure"> Are you sure</div>
-		<div class="confirm-delete"><div class="no" id="no" onclick="cancel('delete-alert')">No</div><div id="yes" onclick="confirmDelete(); deleteProduct()" class="yes">Yes</div></div>
+		<div class="confirm-delete"><div class="no" id="no" onclick="cancel('delete-alert')">No</div><div id="yes" onclick="confirmDelete(); deleteProduct(); deleteInvoice()" class="yes">Yes</div></div>
 	</div>
 	
 	<section class="new-customer" id="edit_customer-popup">

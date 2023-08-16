@@ -17,7 +17,7 @@ public class Test {
 		ApplicationContext a = new AnnotationConfigApplicationContext(AppConfig.class);
 		InvoiceDao dao = (InvoiceDao)a.getBean(InvoiceDao.class);
 		dao.createInvoice(new Invoice("234", "2", "{milk : {quantity : 2, price : 64}, biscuit : {quantity : 4, price : 20}}", 84, "paid", "14-08-2023","7896"));
-		
+		System.out.println(a);
 		
 	}
 }

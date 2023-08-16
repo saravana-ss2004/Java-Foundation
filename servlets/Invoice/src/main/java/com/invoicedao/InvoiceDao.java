@@ -19,7 +19,7 @@ public class InvoiceDao {
 	
 	public int createInvoice(Invoice invoice) {
 		try {
-			String query = "insert into Invoices values ('"+invoice.getId()+"','"+invoice.getInvoiceNumber()+"','"+invoice.getInvoiceDetails()+"','"+invoice.getSum()+"','"+invoice.getStatus()+"','"+invoice.getDate()+"','"+invoice.getCustomerId()+"')";
+			String query = "insert into Invoices (id, invoice_details, sum, status, date, customer_id)values ('"+invoice.getId()+"','"+invoice.getInvoiceDetails()+"','"+invoice.getSum()+"','"+invoice.getStatus()+"','"+invoice.getDate()+"','"+invoice.getCustomerId()+"')";
 			jdbcTemplate.update(query);
 			return 1;
 		}catch(Exception e) {
@@ -56,5 +56,35 @@ public class InvoiceDao {
 		
 	}
 	
+	public int deleteInvoice(String id) {
+		String query = "delete from Invoices where id = '"+id+"'";
+		return jdbcTemplate.update(query);
+	}
+	
+	public JSONArray getInvoice(String id) {
+		String query = "select * from Invoices where id = '"+id+"'";
+		List<Invoice> invoices = jdbcTemplate.query(query, new InvoiceRowMapper());
+		
+		JSONArray array = new JSONArray();
+		for(Invoice invoice : invoices) {
+			String cus = "select * from Customers where customer_id = '"+invoice.getCustomerId()+"'" ;
+			List<Customer> customers = jdbcTemplate.query(cus, new CustomerRowMapper());
+			String name = customers.get(0).getCustomerName();
+			String mobile = customers.get(0).getMobileNumber();
+			String mail = customers.get(0).getEmail();
+			JSONObject obj = new JSONObject();
+			obj.put("id", invoice.getId());
+			obj.put("invoice", invoice.getInvoiceNumber());
+			obj.put("customerName", name);
+			obj.put("mobile",mobile);
+			obj.put("mail", mail);
+			obj.put("status", invoice.getStatus());
+			obj.put("amount", invoice.getSum());
+			obj.put("date", invoice.getDate());
+			obj.put("details", invoice.getInvoiceDetails());
+			array.put(obj);
+		}
+		return array;
+	}
 	
 }
