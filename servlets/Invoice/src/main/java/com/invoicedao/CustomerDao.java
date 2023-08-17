@@ -34,20 +34,26 @@ public class CustomerDao {
 	
 	
 	public JSONArray getCustomers() {
-		String query = "select * from Customers";
-		List<Customer> customers = jdbcTemplate.query(query, new CustomerRowMapper());
-		
-		JSONArray array = new JSONArray();
-		for (Customer customer : customers) {
-			JSONObject obj = new JSONObject();
-			obj.put("id",customer.getCustomerId());
-			obj.put("name",customer.getCustomerName());
-			obj.put("mail",customer.getEmail());
-			obj.put("mobilenumber",customer.getMobileNumber());
-			array.put(obj);
+		try {
+			String query = "select * from Customers";
+			List<Customer> customers = jdbcTemplate.query(query, new CustomerRowMapper());
+			
+			JSONArray array = new JSONArray();
+			for (Customer customer : customers) {
+				JSONObject obj = new JSONObject();
+				obj.put("id",customer.getCustomerId());
+				obj.put("name",customer.getCustomerName());
+				obj.put("mail",customer.getEmail());
+				obj.put("mobilenumber",customer.getMobileNumber());
+				array.put(obj);
+			}
+			
+			return array;
+			
+		}catch(Exception e) {
+			System.out.println(e);
 		}
-		
-		return array;
+		return null;
 		
 	}
 	public int updateCustomer(Customer customer) {

@@ -1,5 +1,6 @@
 package com.MVC;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.UUID;
 
@@ -12,8 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
-
+import com.invoice.Customer;
 import com.invoice.Invoice;
 import com.invoicedao.InvoiceDao;
 
@@ -95,6 +95,42 @@ public class InvoiceController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+	}
+	
+	@RequestMapping("/editinvoice")
+	public void editInvoice(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String invoice_id = request.getParameter("invoice_id");
+		String detail= request.getParameter("detail");
+		String sum = request.getParameter("sum");
+		String status = request.getParameter("status");
+		String date = request.getParameter("date");
+		String id = request.getParameter("customer");
+		
+		
+		int num = invoice.editInvoice(new Invoice(invoice_id, null, detail, Integer.parseInt(sum), status, date, id));
+		PrintWriter out = response.getWriter();
+		out.print(num);
+		System.out.println(num);
+	}
+	
+	@RequestMapping("/specifiedinvoice")
+	public JSONObject getSpecifiedinvoice(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			String id = request.getParameter("customer_id");
+			
+			JSONObject responseObject = new JSONObject();
+			responseObject.put("Status",response.getStatus());
+			responseObject.put("Message", invoice.getSpecifiedInvoice(id));
+			System.out.println(responseObject);
+			PrintWriter out = response.getWriter();
+			out.print(responseObject);
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 		
 	}
 	

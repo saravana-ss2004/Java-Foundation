@@ -223,6 +223,62 @@
 		</div>
 	</section>
 	
+	<section class="view-invoice" id="view-invoice">
+		<h2>Invoice</h2>
+		<div class="int" onclick="cancel('view-invoice')">X</div>
+		<div class="template">
+			<div class="invoice-template">
+				<div class="customer-details" id="customer-details">
+					
+					
+				</div>
+				
+				<div>
+					<table>
+						<tr>
+							<th class="sno">#</th>
+							<th class="item">Item</th>
+							<th class="qty">Qty</th>
+							<th class="rate">Rate</th>
+							<th class="amount">Amount</th>
+						</tr>
+					</table>
+					
+					<table id="invoice-table">
+						
+					</table>
+					
+					<div class="total-amount">Total : 30</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section class="edit-invoice">
+		<h2>Edit Invoice</h2>
+		
+		<div>
+		 	<span>Customer name :</span>
+		 	<select class="select-customer">
+		 		<option>option</option>
+		 		<option>option2</option>
+		 	</select>
+		</div>
+		
+		<div>
+			<span>Status : </span>
+			<select class="select-customer">
+				<option value="unpaid">Unpaid</option>
+				<option value="paid">Paid</option>
+			</select>
+		</div>
+		
+		<div id="edit-invoice-list">
+			<div>
+				<span>Item : </span><select class="select-customer"></select><span>Quantity :</span><input placeholder="quantity">
+			</div>
+		</div>
+	</section>
 	
 	
 	

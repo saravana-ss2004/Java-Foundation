@@ -17,13 +17,21 @@ public class AppConfig {
 	@Bean
 	public DataSource dataSource(){
 		
-		DriverManagerDataSource datasource = new DriverManagerDataSource();
-		datasource.setDriverClassName("com.mysql.jdbc.Driver");
-		datasource.setUrl("jdbc:mysql://localhost:3306/Invoice");
-		datasource.setUsername("saravana");
-		datasource.setPassword("sethupathi790");
+		try {
+			DriverManagerDataSource datasource = new DriverManagerDataSource();
+			datasource.setDriverClassName("com.mysql.jdbc.Driver");
+			datasource.setUrl("jdbc:mysql://localhost:3306/Invoice");
+			datasource.setUsername("saravana");
+			datasource.setPassword("sethupathi790");
+			
+			System.out.println(datasource);
 
-		return datasource;
+			return datasource;
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return null;
+		
 	}
 
 	@Bean

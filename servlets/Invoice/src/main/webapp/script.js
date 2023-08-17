@@ -109,12 +109,10 @@ function updateInvoiceList(invoices){
     invoices.forEach((invoice, index) => {
         const invoiceDiv = document.createElement("div");
         invoiceDiv.classList.add("customer");
-        invoiceDiv.classList.add("invoices");
-        invoiceDiv.setAttribute("data-key", invoice.id)
-        invoiceDiv.setAttribute("onclick", "getInvoice(this)")
+      
         invoiceDiv.innerHTML = `
             <div class="date">${invoice.date}</div>
-            <div class="invoice">${invoice.invoice}</div>
+            <div class="invoice" data-key="${invoice.id}" onclick="getInvoice(this)" style="cursor:pointer; color:#4791fb;">${invoice.invoice}</div>
             <div class="invo-name">${invoice.customerName}</div>
             <div class="status">${invoice.status}</div>
             <div class="amount">${invoice.amount}</div>
@@ -636,10 +634,31 @@ function getInvoice(ele){
     	})
     	.then(response => response.json())
     	.then(data => {
-        	console.log(JSON.parse(data.Message[0].details));
-   		});
+				document.querySelector(".view-invoice").style.display = "block";
+				let detail = JSON.parse(data.Message[0].details)
+				let len = Object.keys(detail)
+				console.log(data)
+				let customerdetails= `<div class="customer-na">Customer Name : ${data.Message[0].customer_name}</div>
+										<div class="mobile-number">mobile : ${data.Message[0].mobile}</div>
+										<div class="mail-id">      mail : ${data.Message[0].email}</div>
+										<div class="invoice-date"> date : ${data.Message[0].date}</div>
+										<div class="invoice-number">invoice number : ${data.Message[0].invoice_number}</div>`
+				document.getElementById("customer-details").innerHTML =customerdetails; 
+				document.querySelector(".total-amount").innerText = `Total :${data.Message[0].sum}`
+				document.getElementById("invoice-table").innerHTML =""; 
+				for(let i=0;i<len.length;i++){
+						let invoicedetails = `<tr>
+												<td class="td-sno">${i+1}</td>
+												<td class="td-item">${len[i]}</td>
+												<td class="td-qty">${detail[len[i]].quantity}</td>
+												<td class="td-rate">${detail[len[i]].price}</td>
+												<td class="td-amount">${detail[len[i]].quantity * detail[len[i]].price}</td>
+											</tr>`
+				document.getElementById("invoice-table").innerHTML +=invoicedetails; 
+				}
+		})
+};
 	
-}
 
 
 

@@ -17,7 +17,7 @@ public class InvoiceRowMapper implements RowMapper<Invoice>{
 		invoice.setSum(rs.getInt("sum"));
 		invoice.setStatus(rs.getString("status"));
 		invoice.setDate(rs.getString("date"));
-		invoice.setCustomerId(rs.getString("customer_id"));
+		invoice.setCustomerId(rs.getString("customerinvoice_id"));
 		
 		return invoice;
 	}

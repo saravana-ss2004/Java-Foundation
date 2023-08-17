@@ -15,6 +15,13 @@ public class FrontController extends AbstractAnnotationConfigDispatcherServletIn
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String[] {"/customers","/addcustomer","/deletecustomer","/customer","/addcustomer","/editcustomer","/products","/addproduct","/deleteproduct","/product","/editproduct","/invoices","/addinvoice","/deleteinvoice","/invoice"};
+		try {
+			return new String[] {"/customers","/addcustomer","/deletecustomer","/customer","/addcustomer","/editcustomer","/products","/addproduct","/deleteproduct","/product","/editproduct","/invoices","/addinvoice","/deleteinvoice","/invoice","/editinvoice","/specifiedinvoice"};
+
+		}catch(Exception e) {
+			
+			System.out.println(e);
+		}
+		return null;
 	}
 }
